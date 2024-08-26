@@ -17,12 +17,14 @@ def collate_fn(dataset_items: List[dict]):
     max_len_spectrogram = max([s.shape[2] for s in spectrograms])
 
     padded_spectrograms = []
+    spectrograms_lengths = []
     for s in spectrograms:
         padded_spectrogram = F.pad(s, (0, max_len_spectrogram-s.shape[2]))
         padded_spectrograms.append(padded_spectrogram[0])
+        spectrograms_lengths.append(s.shape[2])
     
     result_batch['spectrogram'] = torch.stack(padded_spectrograms)
-    
+    result_batch['spectrogram_length'] = torch.tensor(spectrograms_lengths)
 
     text_encoded = [item['text_encoded'] for item in dataset_items]
     max_text_encoded_length = max(text.shape[1] for text in text_encoded)

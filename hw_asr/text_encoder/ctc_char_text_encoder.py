@@ -20,9 +20,6 @@ class CTCCharTextEncoder(CharTextEncoder):
         self.char2ind = {v: k for k, v in self.ind2char.items()}
 
     def ctc_decode(self, inds: List[int]) -> str:
-        if not inds:
-            return ""
-        
         chars = [self.ind2char[ind] for ind in inds]
 
         result = []

@@ -29,7 +29,7 @@ def main(config):
     # text_encoder
     text_encoder = config.get_text_encoder()
 
-    # setup data_loader instances
+    # setup data_loader instance,,s
     dataloaders = get_dataloaders(config, text_encoder)
 
     # build model architecture, then print to console
